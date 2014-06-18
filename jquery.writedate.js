@@ -16,7 +16,7 @@
 		en: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 	};
 	var days = {
-		fr:['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+		fr:['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'],
 		en: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 	};
 	
@@ -24,6 +24,7 @@
 	formats:
 	%A day name (Sunday, Monday...)
 	%e Day of the month (1 to 31)
+	%d Day of the month (01 to 31)
 	%Y Four digit representation for the year
 	%b	Abbreviated month name, based on the locale (Jan, Feb...)
 	%B  Full month name, based on the locale
@@ -46,12 +47,14 @@
 		var date = _self.text();
 		var month = Number(date.substr(5,2))-1;
 		var year = date.substr(0, 4);
-		var day = Number(date.substr(8, 2));/**/
+		var dayStr = date.substr(8, 2);
+		var day = Number(dayStr);/**/
+		if(!day || !month || !year) return;
 		var dObj = new Date(year, month, day);
-		
 		var desc = {
 			A : days[lang][dObj.getDay()],
 			e : day,
+			d : dayStr,
 			Y : year,
 			b: monthsShort[lang][month],
 			B: months[lang][month]
@@ -65,7 +68,7 @@
 		/*console.log(day, month, year, date);
 		console.log(parsedStr);/**/
 
-		_self.text(textDate);
+		_self.html(textDate);
 		
 	
 	};
