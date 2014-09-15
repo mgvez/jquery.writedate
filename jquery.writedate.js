@@ -1,5 +1,5 @@
 /*
-	version 2013-08-26
+	version 2014-09-15
 */
 
 (function($){  
@@ -28,6 +28,7 @@
 	%Y Four digit representation for the year
 	%b	Abbreviated month name, based on the locale (Jan, Feb...)
 	%B  Full month name, based on the locale
+	%q (not strftime standard) de or d' depending on month name in french (d'octobre vs de juin)
 	*/ 
 
 
@@ -57,7 +58,8 @@
 			d : dayStr,
 			Y : year,
 			b: monthsShort[lang][month],
-			B: months[lang][month]
+			B: months[lang][month],
+			q: lang === 'fr' ? (['a','o'].indexOf(months[lang][month][0].toLowerCase()) !== -1 ? 'd\'' : 'de ') : ''
 		};
 
 		var textDate = typeof settings.format == 'string' ? settings.format : settings.format[lang] ;
